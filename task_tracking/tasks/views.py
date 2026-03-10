@@ -18,7 +18,7 @@ from .mixins import UserIsOwnerMixin
 class TaskListView(ListView):
     model = models.Task
     context_object_name = "tasks"
-    template_name = "tasks/templates/task_list.html"
+    template_name = "templates/tasks/task_list.html"
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -36,7 +36,7 @@ class TaskListView(ListView):
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = models.Task
     context_object_name = "task"
-    template_name = "tasks/templates/task_detail.html"
+    template_name = "templates/tasks/task_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -56,7 +56,7 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
 class TaskCreateView(LoginRequiredMixin, CreateView):
     model = models.Task
     form_class = TaskForm
-    template_name = "tasks/templates/task_form.html"
+    template_name = "templates/tasks/task_form.html"
     success_url = reverse_lazy("tasks:task-list")
 
     def form_valid(self, form):
@@ -67,13 +67,13 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = models.Task
     form_class = TaskForm
-    template_name = "tasks/templates/task_update_form.html"
+    template_name = "templates/tasks/task_update_form.html"
     success_url = reverse_lazy("tasks:task-list")
 
 
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = models.Task
-    template_name = "tasks/templates/task_delete_confirmation.html"
+    template_name = "templates/tasks/task_delete_confirmation.html"
     success_url = reverse_lazy("tasks:task-list")
 
 
@@ -88,7 +88,7 @@ class TaskCompleteView(LoginRequiredMixin, View):
 class CommentUpdateView(LoginRequiredMixin, UpdateView):
     model = models.Comment
     form_class = CommentForm
-    template_name = "tasks/templates/edit_comment.html"
+    template_name = "templates/tasks/edit_comment.html"
 
     def get_success_url(self):
         return self.object.task.get_absolute_url()
@@ -96,7 +96,7 @@ class CommentUpdateView(LoginRequiredMixin, UpdateView):
 
 class CommentDeleteView(LoginRequiredMixin, DeleteView):
     model = models.Comment
-    template_name = "tasks/templates/delete_comment.html"
+    template_name = "templates/tasks/delete_comment.html"
 
     def get_success_url(self):
         return self.object.task.get_absolute_url()
@@ -115,7 +115,7 @@ class CommentLikeToggle(LoginRequiredMixin, View):
 
 
 class CustomLoginView(LoginView):
-    template_name = "tasks/templates/login.html"
+    template_name = "templates/tasks/login.html"
 
 
 class CustomLogoutView(LogoutView):
@@ -124,5 +124,5 @@ class CustomLogoutView(LogoutView):
 
 class RegisterView(CreateView):
     form_class = UserCreationForm
-    template_name = "tasks/templates/register.html"
+    template_name = "templates/tasks/register.html"
     success_url = reverse_lazy("tasks:login")
